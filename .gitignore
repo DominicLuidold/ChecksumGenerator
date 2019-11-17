@@ -4,3 +4,6 @@
 # IntelliJ/Project specific
 out/
 *.iml
+
+# Irrelevant files & folders
+*/META-INF/
