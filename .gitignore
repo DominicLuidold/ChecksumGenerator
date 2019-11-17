@@ -1,0 +1,6 @@
+# IDE specific
+.idea/
+
+# IntelliJ/Project specific
+out/
+*.iml
