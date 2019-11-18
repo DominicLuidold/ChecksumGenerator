@@ -1,6 +1,7 @@
 package com.luidold.www;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
@@ -25,7 +26,7 @@ public class ChecksumFileVisitor extends SimpleFileVisitor<Path> {
         try {
             _hashAlgorithm = MessageDigest.getInstance(hashAlgorithm);
         } catch (NoSuchAlgorithmException e) {
-            _logger.log(Level.SEVERE, "Hashing algorithm '" + _hashAlgorithm + "' unknown. Please specify a correct algorithm");
+            _logger.log(Level.SEVERE, "Hashing algorithm '" + hashAlgorithm + "' unknown. Please specify a correct algorithm");
             System.exit(1);
         }
     }
@@ -71,8 +72,11 @@ public class ChecksumFileVisitor extends SimpleFileVisitor<Path> {
 
             // Return checksum
             return result.toString();
+        } catch (FileNotFoundException e) {
+            _logger.log(Level.SEVERE, "Could not locate specified file or folder '" + e.getMessage() + "'");
+            System.exit(1);
         } catch (IOException e) {
-            _logger.log(Level.SEVERE, "Severe error occurred - terminating application\n" + e.getMessage());
+            _logger.log(Level.SEVERE, "Severe error occurred - terminating application");
             System.exit(-1);
         }
         return "<Error - could not generate " + _hashAlgorithm + " hash>";

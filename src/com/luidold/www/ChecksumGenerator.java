@@ -2,7 +2,7 @@ package com.luidold.www;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -35,8 +35,11 @@ public class ChecksumGenerator {
     private static void start() {
         try {
             Files.walkFileTree(Paths.get(_params.get("-f").replace("\"", "")), new ChecksumFileVisitor(_params.get("-a")));
+        } catch (NoSuchFileException e) {
+            _logger.log(Level.SEVERE, "Could not locate specified file or folder '" + e.getMessage() + "'");
+            System.exit(1);
         } catch (IOException e) {
-            _logger.log(Level.SEVERE, "Severe error occurred - terminating application\n" + e.getMessage());
+            _logger.log(Level.SEVERE, "Severe error occurred - terminating application");
             System.exit(-1);
         }
     }
