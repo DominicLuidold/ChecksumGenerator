@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * The ChecksumGenerator will print the checksum for all given files in the specified root folder.
  *
  * @author Dominic Luidold
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class ChecksumGenerator {
     private static final Logger _logger = Logger.getLogger(ChecksumGenerator.class.getName());
